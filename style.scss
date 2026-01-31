@@ -1,0 +1,672 @@
+// ==========================================
+// VARIABLES & MIXINS
+// ==========================================
+
+// Color Variables
+$color-primary: #1B9A6B;
+$color-primary-dark: #2D8659;
+$color-accent: #2D7A6B;
+$color-orange: #E67E22;
+$color-text: #333;
+$color-text-light: #666;
+$color-gray-light: #F5F5F5;
+$color-white: #FFFFFF;
+$color-border: #e0e0e0;
+$color-dark: #333;
+
+// Font Variables
+$font-family: Arial, sans-serif;
+$font-size-base: 16px;
+$font-size-large: 32px;
+$font-size-medium: 24px;
+$font-size-small: 14px;
+$font-size-xs: 12px;
+
+// Breakpoints
+$breakpoint-lg: 1024px;
+$breakpoint-md: 768px;
+$breakpoint-sm: 480px;
+
+// Spacing
+$spacing-xs: 10px;
+$spacing-sm: 15px;
+$spacing-md: 20px;
+$spacing-lg: 30px;
+$spacing-xl: 40px;
+$spacing-xxl: 60px;
+
+// ==========================================
+// MEDIA QUERY MIXINS
+// ==========================================
+
+// Large screens (1024px and down)
+@mixin respond-lg {
+    @media (max-width: $breakpoint-lg) {
+        @content;
+    }
+}
+
+// Tablets (768px and down)
+@mixin respond-md {
+    @media (max-width: $breakpoint-md) {
+        @content;
+    }
+}
+
+// Small devices (480px and down)
+@mixin respond-sm {
+    @media (max-width: $breakpoint-sm) {
+        @content;
+    }
+}
+
+// Mobile-first approach - min-width
+$breakpoint-md-up: 769px;
+$breakpoint-lg-up: 1025px;
+
+@mixin respond-min-md {
+    @media (min-width: $breakpoint-md-up) {
+        @content;
+    }
+}
+
+@mixin respond-min-lg {
+    @media (min-width: $breakpoint-lg-up) {
+        @content;
+    }
+}
+
+// ==========================================
+// UTILITY MIXINS
+// ==========================================
+
+// Flex utilities
+@mixin flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@mixin flex-center-col {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+// Transitions
+@mixin transition($property: all, $duration: 0.3s, $timing: ease) {
+    transition: $property $duration $timing;
+}
+
+// Focus state
+@mixin focus-state {
+    &:focus-visible {
+        outline: 2px solid $color-primary;
+        outline-offset: 2px;
+    }
+}
+
+// ==========================================
+// GLOBAL STYLES
+// ==========================================
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --color-primary: #{$color-primary};
+    --color-primary-dark: #{$color-primary-dark};
+    --color-accent: #{$color-accent};
+    --color-orange: #{$color-orange};
+    --color-text: #{$color-text};
+    --color-text-light: #{$color-text-light};
+    --color-gray-light: #{$color-gray-light};
+    --color-white: #{$color-white};
+    --font-family: #{$font-family};
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: $font-family;
+    color: $color-text;
+    line-height: 1.6;
+}
+
+// ==========================================
+// HEADER SECTION
+// ==========================================
+
+.header {
+    background-color: $color-white;
+    padding: $spacing-xl;
+    border-bottom: 1px solid $color-border;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+
+    @include respond-md {
+        padding: $spacing-md;
+    }
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: $spacing-xs;
+    font-size: $font-size-large;
+    font-weight: bold;
+    color: $color-primary;
+    text-decoration: none;
+
+    svg {
+        width: 180px;
+        height: 60px;
+    }
+
+    @include respond-md {
+        font-size: $font-size-medium;
+        justify-content: center;
+        
+        svg {
+            width: 140px;
+            height: 47px;
+        }
+    }
+}
+
+// ==========================================
+// HERO SECTION
+// ==========================================
+
+.hero {
+    display: flex;
+    background-color: $color-white;
+    min-height: 400px;
+    position: relative;
+
+    @include respond-md {
+        flex-direction: column;
+        min-height: 300px;
+    }
+}
+
+.hero-content {
+    display: flex;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+
+    @include respond-md {
+        flex-direction: column;
+    }
+}
+
+.hero-image {
+    flex: 1;
+    overflow: hidden;
+    @include flex-center;
+    background-color: #f0f0f0;
+
+    @include respond-md {
+        flex: none;
+        height: 250px;
+    }
+}
+
+.placeholder-image {
+    width: 100%;
+    height: 100%;
+    @include flex-center;
+    overflow: hidden;
+
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+}
+
+.hero-accent {
+    flex: 1;
+    background: linear-gradient(135deg, $color-accent 0%, $color-primary-dark 100%);
+
+    @include respond-md {
+        display: none;
+    }
+}
+
+// ==========================================
+// INVESTMENT SECTION
+// ==========================================
+
+.investment {
+    text-align: center;
+    padding: $spacing-xxl $spacing-xl;
+    max-width: 900px;
+    margin: 0 auto;
+
+    @include respond-md {
+        padding: $spacing-xl $spacing-md;
+    }
+
+    h2 {
+        font-size: $font-size-large;
+        color: $color-primary;
+        margin-bottom: $spacing-sm;
+        position: relative;
+        padding-bottom: $spacing-md;
+
+        &::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 3px;
+            background-color: $color-primary;
+            margin: $spacing-md auto 0;
+        }
+
+        @include respond-md {
+            font-size: $font-size-medium;
+        }
+    }
+
+    p {
+        font-size: $font-size-base;
+        color: $color-text-light;
+        margin-bottom: $spacing-lg;
+        line-height: 1.8;
+
+        @include respond-md {
+            font-size: 15px;
+        }
+    }
+}
+
+.btn-careers {
+    background-color: $color-orange;
+    color: $color-white;
+    border: none;
+    padding: 12px $spacing-lg;
+    font-size: $font-size-base;
+    font-weight: 500;
+    border-radius: 4px;
+    cursor: pointer;
+    @include transition(background-color, 0.3s, ease);
+
+    &:hover {
+        background-color: #d97a1f;
+        transform: translateY(-2px);
+    }
+
+    &:active {
+        transform: translateY(0);
+    }
+
+    @include focus-state;
+}
+
+// ==========================================
+// ADVANTAGES SECTION
+// ==========================================
+
+.advantages {
+    padding: $spacing-xxl $spacing-xl;
+    background-color: $color-gray-light;
+
+    @include respond-md {
+        padding: $spacing-xl $spacing-md;
+    }
+
+    h2 {
+        text-align: center;
+        font-size: $font-size-large;
+        color: $color-primary;
+        margin-bottom: $spacing-sm;
+        position: relative;
+        padding-bottom: $spacing-md;
+
+        &::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 3px;
+            background-color: $color-primary;
+            margin: $spacing-md auto 0;
+        }
+
+        @include respond-md {
+            font-size: $font-size-medium;
+        }
+    }
+}
+
+.advantages-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: $spacing-xl;
+    max-width: 1200px;
+    margin: $spacing-xl auto 0;
+
+    @include respond-lg {
+        gap: $spacing-lg;
+    }
+
+    @include respond-md {
+        grid-template-columns: 1fr;
+        gap: $spacing-md;
+    }
+}
+
+.advantage-card {
+    background-color: $color-white;
+    padding: $spacing-lg;
+    border-radius: 4px;
+
+    @include respond-md {
+        padding: $spacing-md;
+    }
+
+    h3 {
+        font-size: 18px;
+        color: $color-primary;
+        margin-bottom: $spacing-sm;
+    }
+
+    p {
+        font-size: 15px;
+        color: $color-text-light;
+        line-height: 1.8;
+        margin-bottom: $spacing-sm;
+    }
+}
+
+.learn-more {
+    color: $color-primary;
+    text-decoration: none;
+    font-weight: 500;
+    @include transition(color);
+
+    &:hover {
+        color: $color-primary-dark;
+        text-decoration: underline;
+    }
+
+    @include focus-state;
+}
+
+// ==========================================
+// CITIZENS SECTION
+// ==========================================
+
+.citizens-section {
+    background-color: $color-primary;
+    color: $color-white;
+    padding: 50px $spacing-xl;
+    text-align: left;
+
+    @include respond-md {
+        padding: $spacing-lg $spacing-md;
+        text-align: center;
+    }
+
+    h2 {
+        font-size: 32px;
+        margin-bottom: 25px;
+        font-weight: 600;
+
+        @include respond-md {
+            font-size: 20px;
+        }
+    }
+
+    p {
+        font-size: 18px;
+        line-height: 1.8;
+        opacity: 0.95;
+        margin: 0;
+
+        @include respond-md {
+            font-size: 13px;
+        }
+    }
+}
+
+// ==========================================
+// TESTIMONIALS SECTION
+// ==========================================
+
+.testimonials {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: $spacing-lg;
+    padding: $spacing-xxl $spacing-xl;
+    max-width: 1200px;
+    margin: 0 auto;
+
+    @include respond-lg {
+        grid-template-columns: repeat(2, 1fr);
+        gap: $spacing-md;
+        padding: $spacing-xl 30px;
+    }
+
+    @include respond-md {
+        grid-template-columns: 1fr;
+        gap: $spacing-lg;
+        padding: $spacing-xl $spacing-md;
+    }
+}
+
+.testimonial-card {
+    text-align: center;
+
+    @include respond-md {
+        padding: $spacing-md;
+        background-color: $color-gray-light;
+        border-radius: 4px;
+    }
+}
+
+.testimonial-image {
+    margin-bottom: $spacing-md;
+
+    img {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 3px solid $color-gray-light;
+
+        @include respond-md {
+            width: 120px;
+            height: 120px;
+        }
+    }
+}
+
+.quote {
+    font-size: $font-size-small;
+    color: $color-text-light;
+    font-style: italic;
+    margin-bottom: $spacing-sm;
+    line-height: 1.8;
+
+    @include respond-md {
+        font-size: 13px;
+    }
+}
+
+.officer-name {
+    font-size: 13px;
+    color: $color-primary;
+    font-weight: 500;
+}
+
+// ==========================================
+// FOOTER SECTION
+// ==========================================
+
+.footer {
+    background-color: $color-white;
+    padding: $spacing-lg $spacing-xl 20px;
+    border-top: 1px solid $color-border;
+
+    @include respond-md {
+        padding: 25px $spacing-md 15px;
+    }
+}
+
+.footer-top {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid $color-border;
+
+    @include respond-md {
+        justify-content: center;
+        padding-bottom: 15px;
+    }
+}
+
+.social-links {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.social-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    color: $color-white;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 600;
+    @include transition(opacity);
+
+    &:hover {
+        opacity: 0.8;
+    }
+
+    svg {
+        width: 18px;
+        height: 18px;
+    }
+
+    @include focus-state;
+}
+
+.social-facebook {
+    background-color: #1877F2;
+}
+
+.social-linkedin {
+    background-color: #0A66C2;
+}
+
+.social-youtube {
+    background-color: #FF0000;
+}
+
+.footer-links {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.footer-link {
+    font-size: 13px;
+    color: $color-text-light;
+    text-decoration: none;
+    @include transition(color);
+
+    &:hover {
+        color: $color-primary;
+        text-decoration: underline;
+    }
+}
+
+.footer-separator {
+    font-size: 13px;
+    color: #999;
+}
+
+@include respond-md {
+    .footer-links {
+        flex-direction: column;
+        gap: 5px;
+    }
+    
+    .footer-separator {
+        display: none;
+    }
+}
+
+.footer-disclaimer {
+    max-width: 1200px;
+    margin: 0 auto 20px;
+
+    p {
+        font-size: 11px;
+        color: #999;
+        margin: 0;
+        line-height: 1.6;
+        text-align: left;
+
+        @include respond-md {
+            font-size: 10px;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        a {
+            color: $color-primary;
+            text-decoration: none;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+}
+
+.footer-bottom {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-top: 15px;
+    border-top: 1px solid $color-border;
+    display: flex;
+    justify-content: flex-start;
+
+    @include respond-md {
+        justify-content: center;
+        padding-top: 15px;
+    }
+}
+
+// ==========================================
+// UTILITY CLASSES
+// ==========================================
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 $spacing-xl;
+
+    @include respond-md {
+        padding: 0 $spacing-md;
+    }
+}
